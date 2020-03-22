@@ -1,0 +1,6 @@
+title: Home Page
+intro: This is where the intro would go.
+team:
+  - name: Scott Kennedy
+    position: Front-end Developer
+    photo: /img/me.jpg
