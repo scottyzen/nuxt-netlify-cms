@@ -24,7 +24,6 @@ collections:
                 dateFormat: "DD.MM.YYYY",
             }
           - { label: "Body", name: "body", widget: "markdown" }
-
     - name: "socialIcons"
       label: "Social Icons"
       format: "json"
@@ -33,19 +32,12 @@ collections:
       fields:
           - { label: "Link", name: "link", widget: "string" }
           - { label: "Icon", name: "image", widget: "image" }
-
     - name: "pages"
       label: "Pages"
       files:
-          - label: "Contact Page"
+          - label: "Contact Us"
             name: "contact"
             file: "pages/contact.vue"
             fields:
                 - { label: Title, name: title, widget: string }
                 - { label: Intro, name: intro, widget: markdown }
-                - label: Locations
-                  name: locations
-                  widget: list
-                  fields:
-                      - { label: Name, name: name, widget: string }
-                      - { label: Address, name: address, widget: string }
