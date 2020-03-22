@@ -37,9 +37,9 @@ collections:
     - name: "pages"
       label: "Pages"
       files:
-          - label: "Locations Page"
-            name: "locations"
-            file: "pages/locations.vue"
+          - label: "Contact Page"
+            name: "contact"
+            file: "pages/contact.vue"
             fields:
                 - { label: Title, name: title, widget: string }
                 - { label: Intro, name: intro, widget: markdown }
