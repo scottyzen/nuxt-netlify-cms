@@ -1,12 +1,12 @@
 <template>
   <div class="container">
     <article class="fadeUp">
-      <h1>{{blogPost.title}}</h1>
-      <div>{{blogPost.body}}</div>
+      <img :src="blogPost.thumbnail" class="h-48 mb-8" />
+      <h1 class="text-xl text-gray-800">{{blogPost.title}}</h1>
+      <p class="tracking-wide text-gray-700 ">{{blogPost.body}}</p>
     </article>
   </div>
 </template>
-
 
 <script>
 export default {
