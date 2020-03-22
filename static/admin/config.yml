@@ -32,12 +32,10 @@ collections:
     fields:
       - { label: "Link", name: "link", widget: "string" }
       - { label: "Icon", name: "image", widget: "image" }
-  - name: "pages"
-    label: "Pages"
-    files:
-      - label: "Contact Us"
-        name: "contact"
-        file: "pages/contact.vue"
-        fields:
-          - { label: Title, name: title, widget: string }
-          - { label: Intro, name: intro, widget: markdown }
+  - name: "settings"
+    label: "Settings"
+    format: "json"
+    create: true
+    folder: "assets/content/settings"
+    fields:
+      - { label: "Tag Line", name: "tagLine", widget: "string" }
