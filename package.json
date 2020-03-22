@@ -1,7 +1,7 @@
 {
   "name": "netlify-cms",
-  "version": "1.0.0",
-  "description": "My good Nuxt.js project",
+  "version": "1.0.1",
+  "description": "Nuxt + Netlify CMS",
   "author": "Scott Kennedy",
   "private": true,
   "scripts": {
