@@ -1,0 +1,6 @@
+{
+  "date": "2020-03-22T15:07:14.169Z",
+  "title": "Reasons to use Nuxt.js",
+  "description": "Reasons to use Nuxt.js",
+  "body": "# 1. Create universal apps without the hassle\n\n# 2. Statically render your Vue apps and get all of benefits of a universal app without a server\n\n# 3. Get automatic code splitting (pre-rendered pages)\n\n# 4. Setup via the command line with the starter template\n\n# 5. Easily set up transitions between your routes\n\n# 6. Get great project structure by default\n\n# 7. Easily write Single File Components\n\n# 8. Get ES6/ES7 compilation without any extra work\n\n# 9. Get setup with an auto-updating server for easy development\n\n# 10. Access to everything in the Nuxt.js community\n\n\n\n# To sum it all up\n\nAll of these features make the development of Vue.js apps a much nicer experience. Even if you don’t need a universal app and want to stick with an SPA, there are still benefits to using Nuxt.js. It can be your project’s main base with benefits like`.vue`files, ES6 compilation, and many more features.\n\n# More Nuxt Content\n\nLearn Nuxt.js over at[VueMastery.com](https://www.vuemastery.com/). Nuxt-focused content will soon be released. You can create a free account to get notified."
+}
