@@ -1,0 +1,6 @@
+{
+  "date": "2020-03-22T15:05:05.458Z",
+  "title": "Why JAMstack is the future",
+  "description": "Why JAMstack is the future",
+  "body": "Here’s how it’s different: With traditional CMSs, on page load, content is queried, generated server-side, and then sent to the user. With a JAMstack, the heavy lifting happens during the build process itself, so the page is already generated on load. Since there isn’t any back-and-forth with a server, sites are easier to deploy, their performance improves, and many of the security risks and maintenance tasks associated with dynamic sites are eliminated. A JAMstack also allows us to decouple our backend from our frontend, giving us more options to curate the correct architecture for our client."
+}
