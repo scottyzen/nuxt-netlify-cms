@@ -1,44 +1,43 @@
 backend:
-    name: git-gateway
-    branch: master
+  name: git-gateway
+  branch: master
 
 media_folder: static/img
 public_folder: /img
 
 collections:
-    - name: "blog"
-      label: "Blog"
-      format: "json"
-      folder: "assets/content/blog"
-      create: true
-      slug: "{{slug}}"
-      editor:
-          preview: true
-      fields:
-          - { label: "Title", name: "title", widget: "string" }
-          - { label: "Featured Image", name: "thumbnail", widget: "image" }
-          - {
-                label: "Publish Date",
-                name: "date",
-                widget: "datetime",
-                dateFormat: "DD.MM.YYYY",
-            }
-          - { label: "Body", name: "body", widget: "markdown" }
-    - name: "socialIcons"
-      label: "Social Icons"
-      format: "json"
-      create: true
-      folder: "assets/content/socialIcons"
-      fields:
-          - { label: "Link", name: "link", widget: "string" }
-          - { label: "Icon", name: "image", widget: "image" }
-    - name: "page"
-      label: "Page"
-      create: true
-      files:
-          - label: "Contact Us"
-            name: "contact"
-            file: "pages/contact.vue"
-            fields:
-                - { label: Title, name: title, widget: string }
-                - { label: Intro, name: intro, widget: markdown }
+  - name: "blog"
+    label: "Blog"
+    format: "json"
+    folder: "assets/content/blog"
+    create: true
+    slug: "{{slug}}"
+    editor:
+      preview: true
+    fields:
+      - { label: "Title", name: "title", widget: "string" }
+      - { label: "Featured Image", name: "thumbnail", widget: "image" }
+      - {
+          label: "Publish Date",
+          name: "date",
+          widget: "datetime",
+          dateFormat: "DD.MM.YYYY",
+        }
+      - { label: "Body", name: "body", widget: "markdown" }
+  - name: "socialIcons"
+    label: "Social Icons"
+    format: "json"
+    create: true
+    folder: "assets/content/socialIcons"
+    fields:
+      - { label: "Link", name: "link", widget: "string" }
+      - { label: "Icon", name: "image", widget: "image" }
+  - name: "pages"
+    label: "Pages"
+    files:
+      - label: "Contact Us"
+        name: "contact"
+        file: "pages/contact.vue"
+        fields:
+          - { label: Title, name: title, widget: string }
+          - { label: Intro, name: intro, widget: markdown }
