@@ -32,8 +32,8 @@ collections:
       fields:
           - { label: "Link", name: "link", widget: "string" }
           - { label: "Icon", name: "image", widget: "image" }
-    - name: "pages"
-      label: "Pages"
+    - name: "page"
+      label: "Page"
       files:
           - label: "Contact Us"
             name: "contact"
