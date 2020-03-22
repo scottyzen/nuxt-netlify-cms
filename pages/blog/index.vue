@@ -1,12 +1,16 @@
 <template>
   <div class="container">
-    <ul>
-      <li class="fadeUp" v-for="(post, index) in blogPosts" :key="post.id">
-        <nuxt-link
-          :to="`/blog/${post.slug}`"
-          class="fadeUp animation-duration-1"
-          :class="`delay-${index*100}`"
-        >{{post.title}}</nuxt-link>
+    <ul class="fadeUp">
+      <li
+        class="p-4 mb-4 leading-none bg-white border-b border-gray-300 rounded shadow-sm fadeUp animation-duration-1"
+        v-for="(post, index) in blogPosts"
+        :key="post.id"
+        :style="{'animation-delay': `${index*100}ms`}"
+      >
+        <nuxt-link :to="`/blog/${post.slug}`">
+          <div class="text-lg text-gray-800">{{post.title}}</div>
+          <span class="text-xs text-gray-700">{{post.date}}</span>
+        </nuxt-link>
       </li>
     </ul>
   </div>
@@ -26,7 +30,7 @@ export default {
 .fadeUp {
   animation: 1s appear forwards;
   opacity: 0;
-  transform: translateY(10px);
+  transform: translateY(5px);
 }
 
 @keyframes appear {
@@ -36,24 +40,6 @@ export default {
   }
 }
 .animation-duration-1 {
-  animation-duration: 600ms;
-}
-.delay-0 {
-  animation-delay: 0;
-}
-.delay-100 {
-  animation-delay: 200ms;
-}
-.delay-200 {
-  animation-delay: 400ms;
-}
-.delay-300 {
-  animation-delay: 600ms;
-}
-.delay-400 {
-  animation-delay: 800ms;
-}
-.delay-500 {
-  animation-delay: 1000ms;
+  animation-duration: 500ms;
 }
 </style>
