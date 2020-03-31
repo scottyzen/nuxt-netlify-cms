@@ -1,11 +1,15 @@
 export const state = () => ({
     blogPosts: [],
+    blogPostScrollPossiton: 0
   });
   
 export const mutations = {
   setBlogPosts(state, list) {
     state.blogPosts = list;
   },
+  updateScrollPossition (state, n) {
+    state.blogPostScrollPossiton = n
+  }
 };
   
 export const actions = {

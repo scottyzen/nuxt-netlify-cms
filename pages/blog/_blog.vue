@@ -3,7 +3,7 @@
     <article class="fadeUp">
       <img :src="blogPost.thumbnail" class="h-48 mb-8" />
       <h1 class="text-xl text-gray-800">{{blogPost.title}}</h1>
-      <p class="tracking-wide text-gray-700 ">{{blogPost.body}}</p>
+      <p class="tracking-wide text-gray-700 whitespace-pre-line" v-html="blogPost.body">Loading</p>
     </article>
   </div>
 </template>
@@ -16,6 +16,20 @@ export default {
       return {
         blogPost: await require(`~/assets/content/blog/${params.blog}.json`)
       }
+  },
+  mounted () {
+    window.addEventListener('scroll', this.handleScroll);
+  },
+  destroyed () {
+    window.removeEventListener('scroll', this.handleScroll);
+    this.$store.commit('updateScrollPossition', 0)
+  },
+  methods: {
+    handleScroll () {
+      var progress = window.scrollY / ( document.body.scrollHeight - window.innerHeight) ;
+      progress = Math.round(progress * 100);
+      this.$store.commit('updateScrollPossition', progress)
+    }
   }
 }
 </script>
