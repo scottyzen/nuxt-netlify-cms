@@ -1,7 +1,10 @@
 <template>
   <div class="container">
     <article class="fadeUp">
-      <img :src="blogPost.thumbnail" class="h-48 mb-8" />
+      <img
+        :src="blogPost.thumbnail"
+        class="object-cover w-full h-48 mb-8 border-8 border-white shadow-xs"
+      />
       <h1 class="text-xl text-gray-800">{{blogPost.title}}</h1>
       <p class="tracking-wide text-gray-700 whitespace-pre-line" v-html="blogPost.body">Loading</p>
     </article>
