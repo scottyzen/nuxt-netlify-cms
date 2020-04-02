@@ -66,7 +66,7 @@ export default {
             }
           }
           )
-          .then((res) => console.log(res))
+          .then((res) => console.log('res: ',res))
       })
     },
   },
