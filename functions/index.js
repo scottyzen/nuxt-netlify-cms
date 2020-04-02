@@ -1,5 +1,13 @@
 require("dotenv").config()
 
+const headers = {
+    'Access-Control-Allow-Origin': '*',
+    'Access-Control-Allow-Headers': 'Origin, X-Requested-With, Content-Type, Accept',
+    'Content-Type': 'application/json',
+    'Access-Control-Allow-Methods': '*',
+    'Access-Control-Max-Age': '2592000',
+    'Access-Control-Allow-Credentials': 'true',
+  };
 const stripeSdk = require('stripe')
 const stripe = stripeSdk(process.env.STRIPE_SECRET_KEY)
 
@@ -7,10 +15,7 @@ exports.handler = async (event, context) => {
   if (!event.body || event.httpMethod !== 'POST') {
     return {
       statusCode: 400,
-      headers: {
-        'Access-Control-Allow-Origin': '*',
-        'Access-Control-Allow-Headers': 'Content-Type'
-      },
+      headers,
       body: JSON.stringify({
         status: 'invalid-method'
       })
@@ -24,10 +29,7 @@ exports.handler = async (event, context) => {
 
     return {
       statusCode: 400,
-      headers: {
-        'Access-Control-Allow-Origin': '*',
-        'Access-Control-Allow-Headers': 'Content-Type'
-      },
+      headers,
       body: JSON.stringify({
         status: 'missing-information'
       })
@@ -52,10 +54,7 @@ exports.handler = async (event, context) => {
   const status = (!charge || charge.status !== 'succeeded') ? 'failed' : charge.status
   return {
     statusCode: 200,
-    headers: {
-      'Access-Control-Allow-Origin': '*',
-      'Access-Control-Allow-Headers': 'Content-Type'
-    },
+    headers,
     body: JSON.stringify({
       status: status
     })
