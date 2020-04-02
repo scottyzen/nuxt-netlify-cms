@@ -49,7 +49,6 @@ export default {
       createToken().then((data) => {
         console.log('First data: ', data);
         
-        setTimeout(() => {
           console.log('fIRE!');
           
           axios
@@ -60,10 +59,14 @@ export default {
               stripeAmt: 2500,
               stripeToken: data.token, //testing token, later we would use payload.data.token
               idempotency_key: uuidv1(), //we use this library to create a unique id
+            },
+            {
+            headers: {
+              "Content-Type": "application/json"
             }
+          }
           )
           .then((res) => console.log(res))
-        }, 2000);
       })
     },
   },
