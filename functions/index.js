@@ -24,9 +24,10 @@ exports.handler = async (event, context) => {
 
   const data = JSON.parse(event.body);
   console.log('Data: ', data);
+  console.log('Data strip Id: ', data.stripeToken.id);
   
 
-  if (!data.token || !data.idempotency_key) {
+  if (!data.stripeToken || !data.idempotency_key) {
     console.error('Required information is missing.')
 
     return {
