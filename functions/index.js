@@ -1,5 +1,7 @@
 require("dotenv").config()
 
+const stripeSdk = require('stripe')
+const stripe = stripeSdk(process.env.STRIPE_SECRET_KEY)
 const headers = {
     'Access-Control-Allow-Origin': '*',
     'Access-Control-Allow-Headers': 'Origin, X-Requested-With, Content-Type, Accept',
@@ -8,8 +10,6 @@ const headers = {
     'Access-Control-Max-Age': '2592000',
     'Access-Control-Allow-Credentials': 'true',
   };
-const stripeSdk = require('stripe')
-const stripe = stripeSdk(process.env.STRIPE_SECRET_KEY)
 
 exports.handler = async (event, context) => {
   if (!event.body || event.httpMethod !== 'POST') {
@@ -24,7 +24,7 @@ exports.handler = async (event, context) => {
 
   const data = JSON.parse(event.body)
 
-  if ( !data.amount ) {
+  if (!data.token || !data.idempotency_key) {
     console.error('Required information is missing.')
 
     return {
@@ -41,12 +41,12 @@ exports.handler = async (event, context) => {
   try {
     charge = await stripe.charges.create({
       currency: 'usd',
-      amount: 10,
-      source: '123456789',
+      amount: 23,
+      source: data.token.id,
       receipt_email: 'kiearh@hotmail.com',
       description: `charge for a widget`
     }, {
-      idempotency_key: 'zWCAjw2rUMO7gnLq'
+      idempotency_key: data.idempotency_key
     })
   } catch (err) {
     console.log(err)
