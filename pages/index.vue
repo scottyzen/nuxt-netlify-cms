@@ -38,7 +38,7 @@ export default {
       e.preventDefault()
       axios
         .post(
-          'https://frosty-noether-b04678.netlify.com/.netlify/functions/index',
+          'https://loving-wing-0e7dc4.netlify.com/.netlify/functions/index',
           {
             amount: this.amount,
           }
