@@ -13,9 +13,7 @@
       <button
         class="px-4 py-2 mt-4 text-teal-900 bg-teal-200 rounded"
         @click="pay"
-      >
-        Pay with credit card
-      </button>
+      >Pay with credit card</button>
     </div>
   </div>
 </template>
@@ -49,18 +47,21 @@ export default {
   methods: {
     pay() {
       createToken().then((data) => {
-        axios
+        console.log('First data: ', data);
+        
+        setTimeout(() => {
+          console.log('fIRE!');
+          
+          axios
           .post(
             'https://loving-wing-0e7dc4.netlify.com/.netlify/functions/index',
             {
               stripeToken: data.token, //testing token, later we would use payload.data.token
               idempotency_key: uuidv1(), //we use this library to create a unique id
-            },
-            {
-              headers: { 'Content-Type': 'application/json' },
             }
           )
           .then((res) => console.log(res))
+        }, 2000);
       })
     },
   },
