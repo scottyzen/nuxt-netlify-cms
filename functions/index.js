@@ -23,7 +23,7 @@ exports.handler = async (event, context) => {
   }
 
   const data = JSON.parse(event.body);
-  console.log(data);
+  console.log('Data: ', data);
   
 
   if (!data.token || !data.idempotency_key) {
@@ -44,7 +44,7 @@ exports.handler = async (event, context) => {
     charge = await stripe.charges.create({
       currency: 'usd',
       amount: 23,
-      source: data.token.id,
+      source: data.stripeToken.id,
       receipt_email: 'kiearh@hotmail.com',
       description: `charge for a widget`
     }, {
