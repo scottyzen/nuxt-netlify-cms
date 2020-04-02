@@ -24,7 +24,7 @@
 import Logo from '~/components/Logo.vue'
 import axios from 'axios'
 import { Card, createToken } from 'vue-stripe-elements-plus'
-import { v1 as uuidv1 } from 'uuid'
+import uuidv1 from 'uuid/v1'
 
 export default {
   components: {
@@ -48,26 +48,19 @@ export default {
   },
   methods: {
     pay() {
-      console.log('pay')
-
-      // createToken returns a Promise which resolves in a result object with
-      // either a token or an error key.
-      // See https://stripe.com/docs/api#tokens for the token object.
-      // See https://stripe.com/docs/api#errors for the error object.
-      // More general https://stripe.com/docs/stripe.js#stripe-create-token.
       createToken().then((data) => {
-        console.log('Token: ' + data.token)
         axios
           .post(
             'https://loving-wing-0e7dc4.netlify.com/.netlify/functions/index',
             {
-              token: data.token,
-              idempotency_key: uuidv1(),
+              stripeToken: data.token, //testing token, later we would use payload.data.token
+              idempotency_key: uuidv1(), //we use this library to create a unique id
+            },
+            {
+              headers: { 'Content-Type': 'application/json' },
             }
           )
-          .then((response) => {
-            console.log(response)
-          })
+          .then((res) => console.log(res))
       })
     },
   },
