@@ -2,22 +2,17 @@
   <div class="container">
     <div>
       <logo />
-      <small>
-        Test using this credit card:
-        <span class="cc-number">4242 4242 4242 4242</span>, and enter any 5
-        digits for the zip code
-      </small>
+
       <card
-        class="stripe-card"
+        class="max-w-lg p-2 mt-12 bg-white rounded shadow-xs"
         id="card"
         :class="{ complete }"
         stripe="pk_test_5ThYi0UvX3xwoNdgxxxTxxrG"
         @change="complete = $event.complete"
       />
       <button
-        class="pay-with-stripe button"
+        class="px-4 py-2 mt-4 text-teal-900 bg-teal-200 rounded"
         @click="pay"
-        :disabled="!complete || !stripeEmail"
       >
         Pay with credit card
       </button>
@@ -53,13 +48,15 @@ export default {
   },
   methods: {
     pay() {
+      console.log('pay')
+
       // createToken returns a Promise which resolves in a result object with
       // either a token or an error key.
       // See https://stripe.com/docs/api#tokens for the token object.
       // See https://stripe.com/docs/api#errors for the error object.
       // More general https://stripe.com/docs/stripe.js#stripe-create-token.
       createToken().then((data) => {
-        console.log(data.token)
+        console.log('Token: ' + data.token)
         axios
           .post(
             'https://loving-wing-0e7dc4.netlify.com/.netlify/functions/index',
@@ -76,12 +73,3 @@ export default {
   },
 }
 </script>
-
-<style>
-.stripe-card {
-  margin-top: 10px;
-  width: 100%;
-  border: 1px solid #ccc;
-  padding: 5px 10px;
-}
-</style>
