@@ -23,6 +23,8 @@ exports.handler = async (event, context) => {
   }
 
   const data = JSON.parse(event.body)
+  console.log(data);
+  
 
   if (!data.token || !data.idempotency_key) {
     console.error('Required information is missing.')
