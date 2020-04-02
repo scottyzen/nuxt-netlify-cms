@@ -11,9 +11,11 @@
     "generate": "nuxt generate"
   },
   "dependencies": {
-    "nuxt": "^2.12.2",
     "@nuxtjs/axios": "^5.9.7",
-    "@nuxtjs/pwa": "^3.0.0-beta.20"
+    "@nuxtjs/pwa": "^3.0.0-beta.20",
+    "dotenv": "^8.2.0",
+    "nuxt": "^2.12.2",
+    "stripe": "^8.38.0"
   },
   "devDependencies": {
     "@nuxtjs/tailwindcss": "^1.4.0",
