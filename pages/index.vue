@@ -24,7 +24,7 @@
 import Logo from '~/components/Logo.vue'
 import axios from 'axios'
 import { Card, createToken } from 'vue-stripe-elements-plus'
-import uuidv1 from 'uuid/v1'
+import { v1 as uuidv1 } from 'uuid'
 
 export default {
   components: {
