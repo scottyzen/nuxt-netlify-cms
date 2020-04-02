@@ -59,7 +59,7 @@ exports.handler = async (event, context) => {
               description: "Sample Charge"
             },
             {
-              idempotency_key: data.stripeIdempotency
+              idempotency_key: data.idempotency_key
             }
           )
           .then(result => {
@@ -81,6 +81,7 @@ exports.handler = async (event, context) => {
       statusCode: 400,
       headers,
       body: JSON.stringify({
+        reason: 'hickup',
         status: err
       })
     }
