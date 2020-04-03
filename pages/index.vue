@@ -7,6 +7,7 @@
         class="max-w-lg p-2 mt-12 bg-white rounded shadow-xs"
         id="card"
         :class="{ complete }"
+        :options="stripeOptions"
         stripe="pk_test_5ThYi0UvX3xwoNdgxxxTxxrG"
         @change="complete = $event.complete"
       />
