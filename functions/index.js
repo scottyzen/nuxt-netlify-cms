@@ -23,7 +23,7 @@ exports.handler = async (event, context) => {
   try {
     await stripe.customers.create({
         email: data.stripeEmail,
-        source: data.stripeToken
+        source: data.stripeToken.id
       }).then(customer => {
         return stripe.charges.create({
               currency: "usd",
