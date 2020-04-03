@@ -20,8 +20,7 @@ exports.handler = async (event, context) => {
   const data = JSON.parse(event.body);
 
   // stripe payment processing begins here
-  try {
-    await stripe.customers.create({
+  try { stripe.customers.create({
         email: data.stripeEmail,
         source: data.stripeToken.id
       }).then(customer => {
@@ -45,13 +44,12 @@ exports.handler = async (event, context) => {
       })
     }
   } catch (err) {
-    console.log(err)
+    console.log('Here is the error: ',err)
 
     return {
       statusCode: 400,
       headers,
       body: JSON.stringify({
-        reason: 'hickup',
         status: err
       })
     }
