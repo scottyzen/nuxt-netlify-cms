@@ -51,9 +51,9 @@ export default {
           .post(
             'https://loving-wing-0e7dc4.netlify.com/.netlify/functions/index',
             {
-              stripeEmail: 'kiearh@hotmail.com',
-              stripeAmt: 2500,
-              stripeToken: data.token, //testing token, later we would use payload.data.token
+              email: 'kiearh@hotmail.com',
+              amount: 2500,
+              token: data.token, //testing token, later we would use payload.data.token
               idempotency_key: uuidv1(), //we use this library to create a unique id
             },
             {
