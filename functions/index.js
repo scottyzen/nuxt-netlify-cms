@@ -21,7 +21,7 @@ exports.handler = async (event, context) => {
 
   // stripe payment processing begins here
   try {
-    await stripe.customers.create({
+    stripe.customers.create({
         email: data.stripeEmail,
         source: data.stripeToken.id
       }).then(customer => {
