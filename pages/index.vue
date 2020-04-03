@@ -21,21 +21,23 @@
 <script>
 import Logo from '~/components/Logo.vue'
 import axios from 'axios'
-import { Card, createToken } from 'vue-stripe-elements-plus'
+import { CardNumber, CardExpiry, CardCvc, Card, createToken } from 'vue-stripe-elements-plus'
 import { v1 as uuidv1 } from 'uuid'
 const endPoint = "https://loving-wing-0e7dc4.netlify.com/.netlify/functions/index";
 
 export default {
   components: {
     Logo,
-    Card
+    Card,
+    CardCvc,
+    CardExpiry,
+    CardNumber
   },
   data() {
     return {
       complete: false,
       stripeOptions: {
         // see https://stripe.com/docs/stripe.js#element-options for details
-        hidePostalCode: true
       },
     }
   },
