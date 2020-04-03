@@ -23,6 +23,8 @@ exports.handler = function(event, context, callback) {
 
   //-- Parse the body contents into an object.
   const data = JSON.parse(event.body);
+  console.log(data.token);
+  
 
   //-- Make sure we have all required data. Otherwise, escape.
   // if( !data.token || !data.amount || !data.idempotency_key ) {
