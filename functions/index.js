@@ -7,6 +7,8 @@ const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY),
   }
 
 exports.handler = async (event, context) => {
+  console.log('Here comes the magic.');
+  
   if (!event.body || event.httpMethod !== "POST") {
     return {
       statusCode: 400,
@@ -34,6 +36,8 @@ exports.handler = async (event, context) => {
 
   // stripe payment processing begins here
   try {
+    console.log('Trying now');
+    
     await stripe.customers
       .create({
         email: data.stripeEmail,
