@@ -20,20 +20,20 @@ exports.handler = async (event, context) => {
   const data = JSON.parse(event.body);
 
   // stripe payment processing begins here
-  try { stripe.customers.create({
+  stripe.customers.create({
         email: data.stripeEmail,
         source: data.stripeToken.id
       }).then(customer => {
         return stripe.charges.create({
-              currency: "usd",
-              amount: data.stripeAmt,
-              receipt_email: data.stripeEmail,
-              customer: customer.id,
-              description: "Sample Charge"
-            },
-            {
-              idempotency_key: data.idempotency_key
-            }).then(result => { console.log(`Charge created: ${result}`) })
+          currency: "usd",
+          amount: data.stripeAmt,
+          receipt_email: data.stripeEmail,
+          customer: customer.id,
+          description: "Sample Charge"
+        },
+        {
+          idempotency_key: data.idempotency_key
+        }).then(result => { console.log(`Charge created: ${result}`) })
       })
 
     return {
@@ -43,15 +43,5 @@ exports.handler = async (event, context) => {
         status: "it works! beep boop"
       })
     }
-  } catch (err) {
-    console.log('Here is the error: ',err)
-
-    return {
-      statusCode: 400,
-      headers,
-      body: JSON.stringify({
-        status: err
-      })
-    }
-  }
+  
 }
