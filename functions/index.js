@@ -23,7 +23,7 @@ exports.handler = function(event, context, callback) {
 
   //-- Parse the body contents into an object.
   const data = JSON.parse(event.body);
-  console.log(data.token);
+  console.log('Here ', data);
   
 
   //-- Make sure we have all required data. Otherwise, escape.
@@ -40,7 +40,7 @@ exports.handler = function(event, context, callback) {
   stripe.charges.create({
       currency: 'usd',
       amount: data.amount,
-      source: data.token,
+      source: data.token.id,
       receipt_email: data.email,
       description: `charge for a widget`,
       metadata: {
