@@ -1,18 +1,17 @@
 <template>
   <div class="container">
-    <div>
-      <logo />
-
+    <div class="max-w-md">
       <card
-        class="max-w-lg p-2 mt-12 bg-white rounded shadow-xs"
+        class="p-2 mt-12 bg-white rounded shadow-xs"
         id="card"
         :class="{ complete }"
         :options="stripeOptions"
-        stripe="pk_test_5ThYi0UvX3xwoNdgxxxTxxrG"
+        stripe="pk_test_PnccujKJJqnELQBTdWpHx5s900OzMpEh6o"
         @change="complete = $event.complete"
       />
+
       <button
-        class="px-4 py-2 mt-4 text-red-900 bg-red-200 rounded"
+        class="px-4 py-2 mt-4 text-green-900 bg-green-300 border-b border-green-500 rounded"
         @click="pay"
       >Pay with credit card</button>
     </div>
@@ -25,16 +24,18 @@ import axios from 'axios'
 import { Card, createToken } from 'vue-stripe-elements-plus'
 import { v1 as uuidv1 } from 'uuid'
 const endPoint = "https://loving-wing-0e7dc4.netlify.com/.netlify/functions/index";
+
 export default {
   components: {
     Logo,
-    Card,
+    Card
   },
   data() {
     return {
       complete: false,
       stripeOptions: {
         // see https://stripe.com/docs/stripe.js#element-options for details
+        hidePostalCode: true
       },
     }
   },
@@ -43,13 +44,15 @@ export default {
       createToken().then((data) => {
         console.log('Here is the data :', data);
           axios.post(endPoint, {
-            email: 'kiearh@hotmail.com',
+            stripeEmail: 'kiearh@hotmail.com',
             amount: 2500,
-            token: data.token, //testing token, later we would use payload.data.token
-            idempotency_key: uuidv1(), //we use this library to create a unique id
+            stripeToken: data.token,
+            idempotency_key: uuidv1(),
           },
           {
-            headers: { "Content-Type": "application/json" }
+            headers: { "Content-Type": "application/json",
+            "Access-Control-Allow-Origin" : "*",
+  "Access-Control-Allow-Headers": "Content-Type" }
           }).then((res) => console.log('res: ',res))
       })
     },
