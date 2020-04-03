@@ -25,20 +25,20 @@ exports.handler = function(event, context, callback) {
   const data = JSON.parse(event.body);
 
   //-- Make sure we have all required data. Otherwise, escape.
-  if( !data.token || !data.amount || !data.idempotency_key ) {
-    console.error('Required information is missing.');
-    callback(null, {
-      statusCode,
-      headers,
-      body: JSON.stringify({status: 'missing-information'})
-    });
-    return;
-  }
+  // if( !data.token || !data.amount || !data.idempotency_key ) {
+  //   console.error('Required information is missing.');
+  //   callback(null, {
+  //     statusCode,
+  //     headers,
+  //     body: JSON.stringify({status: 'missing-information'})
+  //   });
+  //   return;
+  // }
 
   stripe.charges.create({
       currency: 'usd',
       amount: data.amount,
-      source: data.token.id,
+      source: data.token,
       receipt_email: data.email,
       description: `charge for a widget`
     },
