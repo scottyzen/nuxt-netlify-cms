@@ -19,34 +19,13 @@ exports.handler = async (event, context) => {
 
   const data = JSON.parse(event.body);
 
-  if (!data.stripeToken || !data.stripeAmt || !data.stripeIdempotency) {
-    console.error("Required information is missing.")
-
-    return {
-      statusCode: 400,
-      headers,
-      body: JSON.stringify({
-        status: "missing information"
-      })
-    }
-  }
-
   // stripe payment processing begins here
   try {
-    await stripe.customers
-      .create({
+    stripe.customers.create({
         email: data.stripeEmail,
         source: data.stripeToken
-      })
-      .then(customer => {
-        console.log(
-          `starting the charges, amt: ${data.stripeAmt}, email: ${
-            data.stripeEmail
-          }`
-        )
-        return stripe.charges
-          .create(
-            {
+      }).then(customer => {
+        return stripe.charges.create({
               currency: "usd",
               amount: data.stripeAmt,
               receipt_email: data.stripeEmail,
@@ -55,11 +34,7 @@ exports.handler = async (event, context) => {
             },
             {
               idempotency_key: data.idempotency_key
-            }
-          )
-          .then(result => {
-            console.log(`Charge created: ${result}`)
-          })
+            }).then(result => { console.log(`Charge created: ${result}`) })
       })
 
     return {

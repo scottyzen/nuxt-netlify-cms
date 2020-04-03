@@ -47,10 +47,6 @@ export default {
   methods: {
     pay() {
       createToken().then((data) => {
-        console.log('First data: ', data);
-        
-          console.log('fIRE!');
-          
           axios
           .post(
             'https://loving-wing-0e7dc4.netlify.com/.netlify/functions/index',
