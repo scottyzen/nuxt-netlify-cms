@@ -42,10 +42,13 @@ exports.handler = function(event, context, callback) {
       amount: data.amount,
       source: data.token,
       receipt_email: data.email,
-      description: `charge for a widget`
+      description: `charge for a widget`,
+      metadata: {
+        invoice_number: 345678
+      }
     },
     {
-      idempotency_key: data.idempotency_key
+      idempotencyKey: data.idempotency_key
     }, (err, charge) => {
 
       if(err !== null) {
