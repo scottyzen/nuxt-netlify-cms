@@ -19,19 +19,14 @@
 </template>
 
 <script>
-import Logo from '~/components/Logo.vue'
 import axios from 'axios'
-import { CardNumber, CardExpiry, CardCvc, Card, createToken } from 'vue-stripe-elements-plus'
+import { Card, createToken } from 'vue-stripe-elements-plus'
 import { v1 as uuidv1 } from 'uuid'
 const endPoint = "https://loving-wing-0e7dc4.netlify.com/.netlify/functions/index";
 
 export default {
   components: {
-    Logo,
-    Card,
-    CardCvc,
-    CardExpiry,
-    CardNumber
+    Card
   },
   data() {
     return {

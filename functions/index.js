@@ -1,85 +1,65 @@
 require("dotenv").config()
 
-const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY),
-  headers = {
-    "Access-Control-Allow-Origin": "*",
-    "Access-Control-Allow-Headers": "Content-Type"
-  }
+const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
+const statusCode = 200;
+const headers = {
+  "Access-Control-Allow-Origin" : "*",
+  "Access-Control-Allow-Headers": "Content-Type"
+};
 
-exports.handler = async (event, context) => {
+exports.handler = function(event, context, callback) {
+
+  console.log('Here comes te magic');
   
-  if (!event.body || event.httpMethod !== "POST") {
-    return {
-      statusCode: 400,
+
+  //-- We only care to do anything if this is our POST request.
+  if(event.httpMethod !== 'POST' || !event.body) {
+    callback(null, {
+      statusCode,
       headers,
-      body: JSON.stringify({
-        status: "invalid http method"
-      })
-    }
+      body: ''
+    });
   }
 
-  const data = JSON.parse(event.body)
-  console.log(data)
+  //-- Parse the body contents into an object.
+  const data = JSON.parse(event.body);
 
-  if (!data.stripeToken || !data.stripeAmt || !data.stripeIdempotency) {
-    console.error("Required information is missing.")
-
-    return {
-      statusCode: 400,
+  //-- Make sure we have all required data. Otherwise, escape.
+  if( !data.token || !data.amount || !data.idempotency_key ) {
+    console.error('Required information is missing.');
+    callback(null, {
+      statusCode,
       headers,
-      body: JSON.stringify({
-        status: "missing information"
-      })
-    }
+      body: JSON.stringify({status: 'missing-information'})
+    });
+    return;
   }
 
-  // stripe payment processing begins here
-  try {
-    await stripe.customers
-      .create({
-        email: data.stripeEmail,
-        source: data.stripeToken
-      })
-      .then(customer => {
-        console.log(
-          `starting the charges, amt: ${data.stripeAmt}, email: ${
-            data.stripeEmail
-          }`
-        )
-        return stripe.charges
-          .create(
-            {
-              currency: "usd",
-              amount: data.stripeAmt,
-              receipt_email: data.stripeEmail,
-              customer: customer.id,
-              description: "Sample Charge"
-            },
-            {
-              idempotency_key: data.stripeIdempotency
-            }
-          )
-          .then(result => {
-            console.log(`Charge created: ${result}`)
-          })
-      })
+  stripe.charges.create({
+      currency: 'usd',
+      amount: data.amount,
+      source: data.token.id,
+      receipt_email: data.email,
+      description: `charge for a widget`
+    },
+    {
+      idempotency_key: data.idempotency_key
+    }, (err, charge) => {
 
-    return {
-      statusCode: 200,
-      headers,
-      body: JSON.stringify({
-        status: "it works! beep boop"
-      })
-    }
-  } catch (err) {
-    console.log(err)
+      if(err !== null) {
+        console.log(err);
+      }
 
-    return {
-      statusCode: 400,
-      headers,
-      body: JSON.stringify({
-        status: err
-      })
+      let status = (charge === null || charge.status !== 'succeeded')
+        ? 'failed'
+        : charge.status;
+
+      callback(null, {
+        statusCode,
+        headers,
+        body: JSON.stringify({status})
+      });
     }
-  }
+  );
 }
+
