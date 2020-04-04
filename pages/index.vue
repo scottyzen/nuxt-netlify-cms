@@ -108,7 +108,7 @@ export default {
           .then((res) => {
             console.log(res)
 
-            if (res.data.status.status === 'succeeded') {
+            if (res.data.status === 'succeeded') {
               this.successMessage = `Your order was successful.`
             }
           })
