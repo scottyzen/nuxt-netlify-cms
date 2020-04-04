@@ -26,16 +26,16 @@ exports.handler = function(event, context, callback) {
   console.log('Here ', data);
   
 
-  //-- Make sure we have all required data. Otherwise, escape.
-  // if( !data.token || !data.amount || !data.idempotency_key ) {
-  //   console.error('Required information is missing.');
-  //   callback(null, {
-  //     statusCode,
-  //     headers,
-  //     body: JSON.stringify({status: 'missing-information'})
-  //   });
-  //   return;
-  // }
+  // -- Make sure we have all required data. Otherwise, escape.
+  if( !data.stripeToken || !data.amount || !data.idempotency_key ) {
+    console.error('Required information is missing.');
+    callback(null, {
+      statusCode,
+      headers,
+      body: JSON.stringify({status: 'missing-information'})
+    });
+    return;
+  }
 
   stripe.charges.create({
       currency: 'usd',
@@ -57,7 +57,7 @@ exports.handler = function(event, context, callback) {
 
       let status = (charge === null || charge.status !== 'succeeded')
         ? 'failed'
-        : charge.status;
+        : charge;
 
       callback(null, {
         statusCode,
