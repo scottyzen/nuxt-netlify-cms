@@ -23,9 +23,7 @@ exports.handler = function(event, context, callback) {
 
   //-- Parse the body contents into an object.
   const data = JSON.parse(event.body);
-  console.log('Here ', data);
   
-
   // -- Make sure we have all required data. Otherwise, escape.
   if( !data.stripeToken || !data.amount || !data.idempotency_key ) {
     console.error('Required information is missing.');
@@ -41,7 +39,7 @@ exports.handler = function(event, context, callback) {
       currency: 'usd',
       amount: data.amount,
       source: data.stripeToken.id,
-      receipt_email: data.email,
+      receipt_email: data.stripeEmail,
       description: `charge for a widget`,
       metadata: {
         invoice_number: 345678
@@ -55,9 +53,7 @@ exports.handler = function(event, context, callback) {
         console.log(err);
       }
 
-      let status = (charge === null || charge.status !== 'succeeded')
-        ? 'failed'
-        : charge;
+      let status = (charge === null || charge.status !== 'succeeded') ? 'failed' : charge.status;
 
       callback(null, {
         statusCode,

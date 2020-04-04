@@ -2,8 +2,8 @@
   <div class="container">
     <div class="flex flex-wrap">
       <img
-        class="w-full max-w-md px-12 pb-8 mx-auto"
-        src="~/assets/wallet.svg"
+        class="w-full max-w-md px-8 mx-auto mb-4"
+        src="~/assets/wallet_gray.svg"
       />
       <div class="flex flex-wrap w-full">
         <input
@@ -32,11 +32,23 @@
       />
 
       <button
-        class="p-3 mt-4 leading-none text-green-900 bg-green-300 border-b border-green-500 rounded"
+        class="w-full p-3 mt-4 leading-none text-purple-900 bg-purple-300 border-b border-purple-500 rounded"
         @click="pay"
       >
         Pay with credit card
       </button>
+    </div>
+    <div
+      v-if="successMessage"
+      class="flex p-3 mt-8 text-green-900 bg-green-100 border-b border-green-200 rounded"
+    >
+      <img
+        src="~/assets/happy-outline.svg"
+        width="24"
+        class="mr-3 text-red-700"
+        alt=""
+      />
+      {{ successMessage }}
     </div>
   </div>
 </template>
@@ -57,23 +69,19 @@ export default {
       complete: false,
       customerName: '',
       customerEmail: '',
+      successMessage: '',
       amount: 50,
       stripeOptions: {
         // see https://stripe.com/docs/stripe.js#element-options for details
         hidePostalCode: true,
         style: {
           base: {
-            iconColor: '#69B87E',
             fontSize: '16px',
             fontFamily:
               'system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, Noto Sans, sans-serif, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji"',
             '::placeholder': {
               color: '#AEB9C7',
             },
-          },
-          invalid: {
-            iconColor: '#FFC7EE',
-            color: '#FFC7EE',
           },
         },
       },
@@ -82,7 +90,6 @@ export default {
   methods: {
     pay() {
       createToken().then((data) => {
-        console.log('Here is the data :', data)
         axios
           .post(
             endPoint,
@@ -95,12 +102,16 @@ export default {
             {
               headers: {
                 'Content-Type': 'application/json',
-                'Access-Control-Allow-Origin': '*',
-                'Access-Control-Allow-Headers': 'Content-Type',
               },
             }
           )
-          .then((res) => console.log('res: ', res))
+          .then((res) => {
+            console.log(res)
+
+            if (res.data.status.status === 'succeeded') {
+              this.successMessage = `Your order was successful.`
+            }
+          })
       })
     },
   },
