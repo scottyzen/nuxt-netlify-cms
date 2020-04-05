@@ -8,14 +8,20 @@
         <li>
           <nuxt-link class="mr-4 font-semibold" to="/blog">Blog</nuxt-link>
         </li>
+        <li>
+          <nuxt-link class="mr-4 font-semibold" to="/donate">Donate</nuxt-link>
+        </li>
       </ul>
-      <div class="line" :style="{width: this.$store.state.blogPostScrollPossiton + '%'}"></div>
+      <div
+        class="line"
+        :style="{ width: this.$store.state.blogPostScrollPossiton + '%' }"
+      ></div>
     </div>
     <nuxt />
   </div>
 </template>
 
-<style lang="postcss" >
+<style lang="postcss">
 html {
   @apply .bg-gray-100;
 }
@@ -27,5 +33,3 @@ html {
   background: tomato;
 }
 </style>
-
-
