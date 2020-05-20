@@ -5,14 +5,13 @@ const headers = {
   "Access-Control-Allow-Origin" : "*",
   "Access-Control-Allow-Headers": "Content-Type"
 };
-const sgMail = require('@sendgrid/mail');
-
 exports.handler = function(event, context, callback) {
+    const sgMail = require('@sendgrid/mail');
 
     console.log('Here comes te magic');
 
     
-    sgMail.setApiKey(process.env.SENDGRID_API_KEY);
+    sgMail.setApiKey('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');
     const msg = {
       to: 'scottyzen@gmail.com',
       from: 'scottyzen@gmail.com',
