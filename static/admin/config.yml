@@ -16,6 +16,11 @@ collections:
       preview: true
     fields:
       - { label: "Title", name: "title", widget: "string" }
+      - {
+          label: "Featured Image Thumbnail",
+          name: "thumbnail",
+          widget: "image",
+        }
       - { label: "Featured Image", name: "thumbnail", widget: "image" }
       - {
           label: "Publish Date",
