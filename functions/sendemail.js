@@ -8,8 +8,8 @@ exports.handler = function (event, context, callback) {
 //   let body = JSON.parse(event.body)
 
   let msg = {
-    to: 'scottyzen@gmail.com',
-    from: 'scottyzen@gmail.com',
+    to: 'scottyzen@me.com',
+    from: 'scottyzen@me.com',
     subject: 'Website Contact Form',
     text: 'Someone has filled out a form on your website, check out the message they left and get in touch with them :)',
     templateId: 'd-39c15b77271449548e2f13b66920f808',
