@@ -22,8 +22,7 @@ exports.handler = function(event, context, callback) {
     sgMail.send(msg);
 
     callback(null, {
-        statusCode,
-        headers,
-        body: JSON.stringify({msg})
+        statusCode: 200,
+        body: "Hello, World!"
       });
 };
