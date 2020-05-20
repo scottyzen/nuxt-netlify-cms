@@ -16,13 +16,13 @@ exports.handler = function (event, context, callback) {
     html: '<p>Hello HTML world!</p>'
   }
 
-//   sgMail.send(msg);
+  sgMail.send(msg);
 
-  sgMail.send(msg).then(() => {
-    console.log(`Contact form sent`)
-    callback()
-  }).catch(e => {
-    console.error(e.toString())
-    callback(e.toString())
-  })
+//   sgMail.send(msg).then(() => {
+//     console.log(`Contact form sent`)
+//     callback()
+//   }).catch(e => {
+//     console.error(e.toString())
+//     callback(e.toString())
+//   })
 }
