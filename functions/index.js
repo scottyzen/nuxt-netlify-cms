@@ -8,9 +8,7 @@ const headers = {
 };
 
 exports.handler = function(event, context, callback) {
-
   console.log('Here comes te magic');
-  
 
   //-- We only care to do anything if this is our POST request.
   if(event.httpMethod !== 'POST' || !event.body) {
