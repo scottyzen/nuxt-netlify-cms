@@ -1,9 +1,7 @@
 require("dotenv").config()
-
 const sgMail = require('@sendgrid/mail')
 
 exports.handler = function (event, context, callback) {
-
   sgMail.setApiKey(process.env.RED_SENDGRID_API_KEY)
 //   let body = JSON.parse(event.body)
 
@@ -15,13 +13,15 @@ exports.handler = function (event, context, callback) {
     html: '<p>Hello HTML world!</p>'
   }
 
-  sgMail.send(msg);
 
-//   sgMail.send(msg).then(() => {
-//     console.log(`Contact form sent`)
-//     callback()
-//   }).catch(e => {
-//     console.error(e.toString())
-//     callback(e.toString())
-//   })
+  sgMail.send(msg).then(message => {
+    console.log(`Contact form sent`)
+    callback(null, {
+        statusCode: 200,
+        body: JSON.stringify({message})
+      });
+  }).catch(e => {
+    console.error(e.toString())
+    callback(e.toString())
+  })
 }
