@@ -11,15 +11,15 @@
     "generate": "nuxt generate"
   },
   "dependencies": {
-    "@nuxtjs/axios": "^5.10.3",
+    "@nuxtjs/axios": "^5.13.6",
     "@nuxtjs/pwa": "^3.0.0-beta.20",
     "@sendgrid/mail": "^7.1.1",
     "axios": "^0.19.2",
     "dotenv": "^8.2.0",
     "mailgun-js": "^0.22.0",
     "nuxt": "^2.12.2",
-    "stripe": "^8.53.0",
-    "uuid": "^8.1.0",
+    "stripe": "^8.217.0",
+    "uuid": "^8.3.2",
     "vue-stripe-elements-plus": "^0.3.2"
   },
   "devDependencies": {

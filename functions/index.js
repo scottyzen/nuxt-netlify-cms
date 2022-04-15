@@ -1,22 +1,20 @@
 require("dotenv").config()
 
 const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
+const accountId = 'acct_1Fe1WMKAmvfmsK5Z'; // scott
+// const accountId = 'acct_19LrA2ARXliUGQz1'; // rc
 const statusCode = 200;
 const headers = {
   "Access-Control-Allow-Origin" : "*",
   "Access-Control-Allow-Headers": "Content-Type"
 };
 
-exports.handler = function(event, context, callback) {
-  console.log('Here comes te magic');
+
+exports.handler = async (event, context) => {
 
   //-- We only care to do anything if this is our POST request.
   if(event.httpMethod !== 'POST' || !event.body) {
-    callback(null, {
-      statusCode,
-      headers,
-      body: ''
-    });
+    return { statusCode, headers, body: ''};
   }
 
   //-- Parse the body contents into an object.
@@ -24,41 +22,66 @@ exports.handler = function(event, context, callback) {
   
   // -- Make sure we have all required data. Otherwise, escape.
   if( !data.stripeToken || !data.amount || !data.idempotency_key ) {
-    console.error('Required information is missing.');
-    callback(null, {
+    return {
       statusCode,
-      headers,
       body: JSON.stringify({status: 'missing-information'})
-    });
-    return;
+    };
   }
 
-  stripe.charges.create({
-      currency: 'eur',
-      amount: data.amount,
-      source: data.stripeToken.id,
-      receipt_email: data.stripeEmail,
-      description: `charge for a widget`,
-      metadata: {
-        invoice_number: 345678
-      }
+  // Create Customer
+  const customer = await stripe.customers.create({
+    email: data.stripeEmail,
+    name : data.stripeName,
+    address: {
+      line1: '510 Townsend St',
+      postal_code: '98140',
+      city: 'San Francisco',
+      state: 'CA',
+      country: 'US',
     },
-    {
-      idempotencyKey: data.idempotency_key
-    }, (err, charge) => {
+    phone: '+15105551234',
+  });
 
-      if(err !== null) {
-        console.log(err);
-      }
+  await stripe.customers.createSource(customer.id, {
+    source: data.stripeToken.id,
+  });
 
-      let status = (charge === null || charge.status !== 'succeeded') ? 'failed' : charge.status;
+  const paymentIntent = await stripe.paymentIntents.create({
+    amount: data.amount,
+    currency: 'eur',
+    receipt_email: data.stripeEmail,
+    description: `Donation of €${data.amount / 100}`,
+    customer: customer.id,
+    capture_method: 'automatic',
+    confirm: true,
 
-      callback(null, {
-        statusCode,
-        headers,
-        body: JSON.stringify({status})
-      });
-    }
-  );
+
+    application_fee_amount: 123,
+    transfer_data: {
+      destination: accountId,
+    },
+  });
+
+
+
+  // const charge = await stripe.charges.create( {
+  //   amount: data.amount,
+  //   currency: 'eur',
+  //   receipt_email: data.stripeEmail,
+  //   description: `Donation of €${data.amount / 100}`,
+  //   customer: customer.id,
+  //   expand: ['balance_transaction'],
+  //   metadata: {
+  //     idempotency_key: data.idempotency_key,
+  //   },
+  // });
+
+  const status = paymentIntent.status;
+
+  return {
+    statusCode,
+    headers,
+    body: JSON.stringify({status})
+  };
+
 }
-
